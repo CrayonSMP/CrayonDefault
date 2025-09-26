@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="" />
+    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="Init." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,12 +14,25 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "TamashiiMon"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/CrayonSMP/CrayonDefault.git",
+    "accountId": "29496a3f-27a2-4a4b-b6dd-30249c94a6dc"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -35,7 +48,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "jdk.selected.JDK": "24",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/gianni/IdeaProjects/CrayonDefault",
@@ -72,12 +85,25 @@
       <option name="presentableId" value="Default" />
       <updated>1758842919132</updated>
       <workItem from="1758842920387" duration="816000" />
-      <workItem from="1758843836562" duration="1817000" />
+      <workItem from="1758843836562" duration="2431000" />
     </task>
+    <task id="LOCAL-00001" summary="Init.">
+      <option name="closed" value="true" />
+      <created>1758846095683</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758846095683</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init." />
+    <option name="LAST_COMMIT_MESSAGE" value="Init." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
