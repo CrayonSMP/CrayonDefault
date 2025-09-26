@@ -30,6 +30,10 @@
             <name>XiaoMoMi's Plugin Repository</name>
             <url>https://repo.momirealms.net/releases</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -48,6 +52,11 @@
             <groupId>net.momirealms</groupId>
             <artifactId>craft-engine-bukkit</artifactId>
             <version>0.0.63.4</version>
+        </dependency>
+        <dependency>
+            <groupId>it.sauronsoftware.cron4j</groupId>
+            <artifactId>cron4j</artifactId>
+            <version>2.2.5</version>
         </dependency>
     </dependencies>
 
