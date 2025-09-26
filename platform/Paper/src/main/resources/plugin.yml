@@ -1,0 +1,8 @@
+name: CrayonDefault
+version: '1.0-SNAPSHOT'
+main: com.crayonsmp.paper.Main
+api-version: '1.21'
+prefix: Crayon
+authors: [TamashiiMon]
+description: The default plugin for CrayonSMP
+website: Crayonsmp.com
