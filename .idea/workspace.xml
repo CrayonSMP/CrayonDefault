@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="Finish Project Structure.">
-      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/ChatUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/restart.java" afterDir="false" />
+    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="Init.">
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
@@ -21,15 +19,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,7 +60,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Automatic-Tasks-devalop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;jdk.selected.JDK&quot;: &quot;24&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/gianni/IdeaProjects/CrayonDefault&quot;,
@@ -83,11 +81,6 @@
     ]
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.crayonsmp.paper.utils" />
-    </key>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -108,7 +101,6 @@
       <workItem from="1758846729936" duration="379000" />
       <workItem from="1758847124894" duration="2342000" />
       <workItem from="1758886193802" duration="757000" />
-      <workItem from="1758893200974" duration="1226000" />
     </task>
     <task id="LOCAL-00001" summary="Init.">
       <option name="closed" value="true" />
@@ -137,8 +129,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init." />
-    <MESSAGE value="Finish Project Structure." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish Project Structure." />
+    <option name="LAST_COMMIT_MESSAGE" value="Init." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
