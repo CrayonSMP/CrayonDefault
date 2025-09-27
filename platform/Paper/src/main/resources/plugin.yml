@@ -6,3 +6,7 @@ prefix: Crayon
 authors: [TamashiiMon]
 description: The default plugin for CrayonSMP
 website: Crayonsmp.com
+commands:
+  twitch:
+    description: Twitch command
+    usage: /twitch <register|unregister|info> <twitchname>
