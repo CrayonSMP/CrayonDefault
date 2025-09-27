@@ -6,13 +6,18 @@ import com.crayonsmp.paper.utils.config.ConfigUtil;
 import com.crayonsmp.paper.utils.config.SConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import com.crayonsmp.paper.utils.tasks.reload;
+import com.crayonsmp.paper.utils.tasks.restart;
+import it.sauronsoftware.cron4j.Scheduler;
+import net.momirealms.craftengine.core.plugin.CraftEngine;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Objects;
 
 public final class Main extends JavaPlugin {
-
+    public static Main instance;
+  
     public static SConfig twitchcConfig;
 
     public static TwitchAPI twitchAPI;
@@ -21,6 +26,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+      
         twitchcConfig = ConfigUtil.getConfig("twitch-config", this);
 
         if (!twitchcConfig.getFile().exists()) {
@@ -48,12 +55,25 @@ public final class Main extends JavaPlugin {
 
         Objects.requireNonNull(getCommand("twitch")).setExecutor(new TwitchCommand());
 
-        // Plugin startup logic
-
+        scheduleDailyTasks();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
+    }
+
+    private void scheduleDailyTasks() {
+        Scheduler reload = new Scheduler();
+        reload.schedule("0 7,13,17,20,23 * * *", new reload());
+        reload.start();
+
+        Scheduler restart = new Scheduler();
+        restart.schedule("0 3 * * *", new restart());
+        restart.start();
+    }
+
+    public static Main getInstance() {
+        return instance;
     }
 }
