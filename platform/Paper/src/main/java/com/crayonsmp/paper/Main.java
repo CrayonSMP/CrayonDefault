@@ -1,10 +1,15 @@
 package com.crayonsmp.paper;
 
 import com.crayonsmp.paper.commands.TwitchCommand;
+import com.crayonsmp.paper.listener.ItemListener;
 import com.crayonsmp.paper.utils.TwitchAPI;
 import com.crayonsmp.paper.utils.config.ConfigUtil;
 import com.crayonsmp.paper.utils.config.SConfig;
+import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
+import net.momirealms.craftengine.bukkit.item.BukkitCustomItem;
+import net.momirealms.craftengine.core.item.CustomItem;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import com.crayonsmp.paper.utils.tasks.reload;
 import com.crayonsmp.paper.utils.tasks.restart;
@@ -30,6 +35,8 @@ public final class Main extends JavaPlugin {
       
         twitchcConfig = ConfigUtil.getConfig("twitch-config", this);
 
+        getServer().getPluginManager().registerEvents(new ItemListener(), this);
+
         if (!twitchcConfig.getFile().exists()) {
             twitchcConfig.setDefault("twitch.client_id", "client_id");
             twitchcConfig.setDefault("twitch.client_secret", "client_secret");
@@ -54,6 +61,7 @@ public final class Main extends JavaPlugin {
         twitchAPI = new TwitchAPI();
 
         Objects.requireNonNull(getCommand("twitch")).setExecutor(new TwitchCommand());
+
 
         scheduleDailyTasks();
     }

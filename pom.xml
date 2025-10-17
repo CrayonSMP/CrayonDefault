@@ -40,18 +40,18 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.8-R0.1-SNAPSHOT</version>
+            <version>1.21.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.momirealms</groupId>
             <artifactId>craft-engine-core</artifactId>
-            <version>0.0.63.4</version>
+            <version>0.0.64.10</version>
         </dependency>
         <dependency>
             <groupId>net.momirealms</groupId>
             <artifactId>craft-engine-bukkit</artifactId>
-            <version>0.0.63.4</version>
+            <version>0.0.64.10</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
