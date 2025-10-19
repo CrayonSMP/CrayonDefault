@@ -1,5 +1,6 @@
 package com.crayonsmp.paper.listener;
 
+import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import io.papermc.paper.datacomponent.item.Equippable;
 import net.kyori.adventure.key.Key;
 import net.momirealms.craftengine.core.attribute.AttributeModifier;
@@ -7,12 +8,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -31,6 +34,12 @@ public class ItemListener implements Listener {
         ItemStack item = event.getItem().getItemStack();
         item = updateArmorModel(item);
         event.getItem().setItemStack(item);
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        updatePlayerArmorCustomModels(player);
     }
 
     @EventHandler
@@ -73,6 +82,16 @@ public class ItemListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onEquipItem(PlayerArmorChangeEvent event) {
+        Player player = event.getPlayer();
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack itemInSlot =  player.getInventory().getItem(slot);
+            ItemStack updatedItem = updateArmorModel(itemInSlot);
+            player.getInventory().setItem(slot, updatedItem);
+        }
+    }
+
 
 
     private ItemStack updateArmorModel(ItemStack item) {
@@ -102,5 +121,21 @@ public class ItemListener implements Listener {
             }
         }
         return item;
+    }
+
+    private void updatePlayerArmorCustomModels(Player player) {
+        EquipmentSlot[] armorSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+
+        for (EquipmentSlot slot : armorSlots) {
+            ItemStack itemInSlot = player.getInventory().getItem(slot);
+
+            if (itemInSlot != null && itemInSlot.getType() != Material.AIR) {
+                ItemStack updatedItem = updateArmorModel(itemInSlot);
+
+                if (!itemInSlot.equals(updatedItem)) {
+                    player.getInventory().setItem(slot, updatedItem);
+                }
+            }
+        }
     }
 }

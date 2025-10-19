@@ -9,7 +9,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -50,8 +49,8 @@ public class TwitchCommand implements CommandExecutor, TabCompleter {
             }
 
             streamers.put(player.getUniqueId().toString(), args[1]);
-            Main.twitchcConfig.set("streamers", streamers);
-            Main.twitchcConfig.save();
+            Main.twitchConfig.set("streamers", streamers);
+            Main.twitchConfig.save();
 
             ChatUtil.sendMessage( sender,"&aSuccessfully registered the Twitch username " + args[1] + "!");
         } else if (args[0].equalsIgnoreCase("info")) {
@@ -86,8 +85,8 @@ public class TwitchCommand implements CommandExecutor, TabCompleter {
             }
 
             streamers.remove(player.getUniqueId().toString());
-            Main.twitchcConfig.set("streamers", streamers);
-            Main.twitchcConfig.save();
+            Main.twitchConfig.set("streamers", streamers);
+            Main.twitchConfig.save();
 
             ChatUtil.sendMessage( sender,"&aSuccessfully unregistered your Twitch username!");
         } else {

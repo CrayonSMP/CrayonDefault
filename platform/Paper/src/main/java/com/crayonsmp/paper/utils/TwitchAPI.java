@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
 public class TwitchAPI {
 
     private final OkHttpClient client;
-    private final String CLIENT_ID = Main.twitchcConfig.getString("twitch.client_id");
-    private final String CLIENT_SECRET = Main.twitchcConfig.getString("twitch.client_secret");
+    private final String CLIENT_ID = Main.twitchConfig.getString("twitch.client_id");
+    private final String CLIENT_SECRET = Main.twitchConfig.getString("twitch.client_secret");
     private String accessToken;
 
     private static final String TWITCH_AUTH_URL = "https://id.twitch.tv/oauth2/token";
