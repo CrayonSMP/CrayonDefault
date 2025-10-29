@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="Copper Helmet Atributes.">
+      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/gui/ArtifactCrafterListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/ArtifactRecipe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/gui/ArtifactCrafterInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/ArtifactService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/TwitchCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/TwitchCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/ItemListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/ItemListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/TwitchAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/TwitchAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
