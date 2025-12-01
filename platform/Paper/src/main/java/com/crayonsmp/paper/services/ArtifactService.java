@@ -36,6 +36,7 @@ public class ArtifactService {
     public void initConfig(){
         if (!config.getFile().exists()) {
             config.setDefault("CrafterBlock", "default:palm_log");
+            config.setDefault("InventoryTitle", "Inventory Crafter");
 
             List<ArtifactRecipe> recipes = new ArrayList<>();
             ArtifactRecipe recipe1 = new ArtifactRecipe("resloult1", new String[]{"artifact1", "artifact2", "artifact3"});
@@ -58,7 +59,7 @@ public class ArtifactService {
 
         CrafterInventory.setOwner(player);
 
-        Inventory inventory = Bukkit.createInventory(player, 27, "InventoryCrafter");
+        Inventory inventory = Bukkit.createInventory(player, 27, config.getString("InventoryTitle"));
         CrafterInventory.setInventory(inventory);
 
         inventorieList.add(CrafterInventory);
