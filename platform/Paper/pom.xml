@@ -52,7 +52,25 @@
           </execution>
         </executions>
       </plugin>
-
+        <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+                <execution>
+                    <id>copy-plugin</id>
+                    <phase>package</phase> <goals>
+                    <goal>run</goal>
+                </goals>
+                    <configuration>
+                        <target>
+                            <copy file="${project.build.directory}/CrayonDefault-Paper-${project.version}.jar"
+                                  todir="/home/tamashii/Dokumente/Projecte/CrayonSMP/Enviroments/TestServer01/plugins" />
+                            <echo message="Plugin ${project.build.finalName}.jar wurde erfolgreich kopiert." />
+                        </target>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
     <resources>
       <resource>
@@ -61,6 +79,14 @@
       </resource>
     </resources>
   </build>
+
+  <repositories>
+      <repository>
+          <id>xiaomomi's plugins-releases</id>
+          <name>XiaoMoMi's Plugin Repository</name>
+          <url>https://repo.momirealms.net/releases</url>
+      </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -72,6 +98,18 @@
         <groupId>com.crayonsmp</groupId>
         <artifactId>common</artifactId>
         <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>net.momirealms</groupId>
+        <artifactId>craft-engine-core</artifactId>
+        <version>0.0.65.11</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>net.momirealms</groupId>
+        <artifactId>craft-engine-bukkit</artifactId>
+        <version>0.0.65.11</version>
+        <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

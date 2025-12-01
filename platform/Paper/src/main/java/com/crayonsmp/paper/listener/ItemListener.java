@@ -1,10 +1,6 @@
 package com.crayonsmp.paper.listener;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
-import io.papermc.paper.datacomponent.item.Equippable;
-import net.kyori.adventure.key.Key;
-import net.momirealms.craftengine.core.attribute.AttributeModifier;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
@@ -14,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;

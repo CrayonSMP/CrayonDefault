@@ -7,11 +7,9 @@ import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
 import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -29,6 +27,10 @@ public class ArtifactCrafterListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event){
         Inventory topInventory = event.getView().getTopInventory();
 
+        if (event.getClickedInventory() == null) {
+            return;
+        }
+
         if (artifactService.isInventoryCrafterInventory(topInventory)) {
             if (!event.getClickedInventory().equals(topInventory)) {
                 if (event.isShiftClick()) {
@@ -45,7 +47,7 @@ public class ArtifactCrafterListener implements Listener {
             }
 
             if (slot == RESULT_SLOT) {
-                if (event.isShiftClick() || event.getClick().isKeyboardClick() || event.getCursor() != null && event.getCursor().getType() != Material.AIR) {
+                if (!event.isLeftClick() || !event.isRightClick() || event.getCursor() != null && event.getCursor().getType() != Material.AIR) {
                     event.setCancelled(true);
                     return;
                 }
@@ -74,35 +76,47 @@ public class ArtifactCrafterListener implements Listener {
         ItemStack i2 = inventory.getItem(10);
         ItemStack i3 = inventory.getItem(18);
 
-        String i1S = "";
-        String i2S = "";
-        String i3S = "";
-
-        if (CraftEngineItems.getCustomItemId(i1) != null) {
-            CraftEngineItems.getCustomItemId(i1);
-        } else i1S = i1.getType().toString();
-        if (CraftEngineItems.getCustomItemId(i2) != null) {
-            CraftEngineItems.getCustomItemId(i2);
-        } else i2S = i1.getType().toString();
-        if (CraftEngineItems.getCustomItemId(i3) != null) {
-            CraftEngineItems.getCustomItemId(i3);
-        } else i3S = i1.getType().toString();
+        if (i1 == null || i2 == null || i3 == null) return;
+        String i1S = getStringFromItem(i1, CraftEngineItems.getCustomItemId(i1));
+        String i2S = getStringFromItem(i2, CraftEngineItems.getCustomItemId(i2));
+        String i3S = getStringFromItem(i3, CraftEngineItems.getCustomItemId(i3));
 
         String[] ingredients = {i1S, i2S, i3S};
+
+        Bukkit.getLogger().info("Checking if recipe exists");
+
+        Bukkit.getLogger().info(Arrays.toString(ingredients));
 
         if (artifactService.isArtifactRecipe(ingredients)){
             ArtifactRecipe recipe = artifactService.getArtifactRecipe(ingredients);
             ItemStack resoult;
+            Bukkit.getLogger().info(recipe.getResoult());
             if (CraftEngineItems.byId(Key.from(recipe.getResoult())) != null){
                 resoult = CraftEngineItems.byId(Key.from(recipe.getResoult())).buildItemStack();
             } else {
                 resoult = new ItemStack(Objects.requireNonNull(Material.matchMaterial(recipe.getResoult())));
             }
 
+            Bukkit.getLogger().info(resoult.getType().toString());
 
             inventory.setItem(16, resoult);
         }
         else inventory.setItem(16, null);
+    }
+
+    private String getStringFromItem(ItemStack i1, Key customItemId) {
+        String i1S;
+        if (i1 != null) {
+            String customId = String.valueOf(CraftEngineItems.getCustomItemId(i1));
+            if (customItemId != null) {
+                i1S = customId;
+            } else {
+                i1S = i1.getType().toString();
+            }
+        } else {
+            i1S = "AIR";
+        }
+        return i1S;
     }
 
     public void removeIngredients(Inventory inventory){
