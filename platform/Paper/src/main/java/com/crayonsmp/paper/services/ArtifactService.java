@@ -23,7 +23,7 @@ import java.util.Objects;
 public class ArtifactService {
     public List<ArtifactRecipe> recipes = new ArrayList<>();
     public List<ArtifactCrafterInventory> inventories = new ArrayList<>();
-    public static SConfig config;
+    public SConfig config;
 
     public void init(Main instance) {
         config = ConfigUtil.getConfig("artefact-config", instance);

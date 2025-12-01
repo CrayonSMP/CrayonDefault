@@ -17,6 +17,8 @@ public final class Main extends JavaPlugin {
     @Getter
     public static Main instance;
     public static ArtifactService artifactService;
+    public static WaystoneService waystoneService;
+    public static TwitchService twitchService;
 
     @Override
     public void onEnable() {
@@ -28,10 +30,10 @@ public final class Main extends JavaPlugin {
         artifactService = new ArtifactService();
         artifactService.init(this);
 
-        WaystoneService waystoneService = new WaystoneService();
+        waystoneService = new WaystoneService();
         waystoneService.init(this);
 
-        TwitchService twitchService = new TwitchService();
+        twitchService = new TwitchService();
         twitchService.init(this);
 
         getServer().getPluginManager().registerEvents(new ItemListener(), this);

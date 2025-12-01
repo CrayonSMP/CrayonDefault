@@ -4,26 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="Artifact System (Unfinished)">
-      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/Waystone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/TwitchService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/WaystoneService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="Clean up and other little thinks.">
+      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/crayonsmp/placeholder" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/dependency-reduced-pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/ArtifactCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/ArtifactCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/TwitchCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/TwitchCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/impls/TwitchAPIimpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/impls/TwitchAPIimpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/ItemListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/ItemListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/gui/ArtifactCrafterListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/gui/ArtifactCrafterListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/ArtifactRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/ArtifactRecipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/gui/ArtifactCrafterInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/gui/ArtifactCrafterInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/ArtifactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/ArtifactService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/TwitchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/TwitchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/WaystoneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/WaystoneService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/TwitchAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/TwitchAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/resources/plugin.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761762209803</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Clean up and other little thinks.">
+      <option name="closed" value="true" />
+      <created>1764621032250</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764621032250</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +172,8 @@
     <MESSAGE value="Init." />
     <MESSAGE value="Copper Helmet Atributes." />
     <MESSAGE value="Artifact System (Unfinished)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Artifact System (Unfinished)" />
+    <MESSAGE value="Clean up and other little thinks." />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean up and other little thinks." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

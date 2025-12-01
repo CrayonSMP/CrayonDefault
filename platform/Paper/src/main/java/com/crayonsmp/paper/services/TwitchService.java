@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class TwitchService {
-    public static TwitchAPI twitchAPI;
-    public static SConfig twitchConfig;
-    public static HashMap<String, String> streamers = new HashMap<>();
+    public TwitchAPI twitchAPI;
+    public SConfig twitchConfig;
+    public HashMap<String, String> streamers = new HashMap<>();
 
     public void init(Main instance) {
         twitchConfig = ConfigUtil.getConfig("twitch-config", instance);

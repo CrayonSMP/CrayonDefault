@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WaystoneService {
-    public static SConfig config;
+    public SConfig config;
+
     @Getter
     public List<Waystone> waystones = new ArrayList<>();
 

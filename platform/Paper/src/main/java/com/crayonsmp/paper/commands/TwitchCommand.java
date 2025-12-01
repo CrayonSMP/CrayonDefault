@@ -1,6 +1,7 @@
 package com.crayonsmp.paper.commands;
 
 import com.crayonsmp.objects.Streamer;
+import com.crayonsmp.paper.Main;
 import com.crayonsmp.paper.services.TwitchService;
 import com.crayonsmp.utils.ChatUtil;
 import org.bukkit.command.Command;
@@ -25,7 +26,7 @@ public class TwitchCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        var api = TwitchService.twitchAPI;
+        var api = Main.twitchService.twitchAPI;
 
         if (args[0].equalsIgnoreCase("register")) {
             if (args.length != 2) {
@@ -38,7 +39,7 @@ public class TwitchCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            HashMap<String, String> streamers = TwitchService.streamers;
+            HashMap<String, String> streamers = Main.twitchService.streamers;
 
             if (streamers.get(player.getUniqueId().toString()) != null){
                 ChatUtil.sendMessage( sender,"&cYou have already registered a Twitch username!");
@@ -46,8 +47,8 @@ public class TwitchCommand implements CommandExecutor, TabCompleter {
             }
 
             streamers.put(player.getUniqueId().toString(), args[1]);
-            TwitchService.twitchConfig.set("streamers", streamers);
-            TwitchService.twitchConfig.save();
+            Main.twitchService.twitchConfig.set("streamers", streamers);
+            Main.twitchService.twitchConfig.save();
 
             ChatUtil.sendMessage( sender,"&aSuccessfully registered the Twitch username " + args[1] + "!");
         } else if (args[0].equalsIgnoreCase("info")) {
@@ -74,7 +75,7 @@ public class TwitchCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            HashMap<String, String> streamers = TwitchService.streamers;
+            HashMap<String, String> streamers = Main.twitchService.streamers;
 
             if (streamers.get(player.getUniqueId().toString()) == null){
                 ChatUtil.sendMessage( sender,"&cYou have not registered a Twitch username!");
@@ -82,8 +83,8 @@ public class TwitchCommand implements CommandExecutor, TabCompleter {
             }
 
             streamers.remove(player.getUniqueId().toString());
-            TwitchService.twitchConfig.set("streamers", streamers);
-            TwitchService.twitchConfig.save();
+            Main.twitchService.twitchConfig.set("streamers", streamers);
+            Main.twitchService.twitchConfig.save();
 
             ChatUtil.sendMessage( sender,"&aSuccessfully unregistered your Twitch username!");
         } else {

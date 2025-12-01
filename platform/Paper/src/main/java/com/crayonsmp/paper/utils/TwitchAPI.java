@@ -1,6 +1,7 @@
 package com.crayonsmp.paper.utils;
 
 import com.crayonsmp.objects.Streamer;
+import com.crayonsmp.paper.Main;
 import com.crayonsmp.paper.services.TwitchService;
 import okhttp3.*;
 import org.bukkit.Bukkit;
@@ -13,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 public class TwitchAPI {
 
     private final OkHttpClient client;
-    private final String CLIENT_ID = TwitchService.twitchConfig.getString("twitch.client_id");
-    private final String CLIENT_SECRET = TwitchService.twitchConfig.getString("twitch.client_secret");
+    private final String CLIENT_ID = Main.twitchService.twitchConfig.getString("twitch.client_id");
+    private final String CLIENT_SECRET = Main.twitchService.twitchConfig.getString("twitch.client_secret");
     private String accessToken;
 
     private static final String TWITCH_AUTH_URL = "https://id.twitch.tv/oauth2/token";
