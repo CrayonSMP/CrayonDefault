@@ -10,19 +10,17 @@ import com.crayonsmp.paper.utils.config.SConfig;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Setter
 @Getter
 public class ArtifactService {
-    public List<ArtifactRecipe> recipes = new ArrayList<>();
-    public List<ArtifactCrafterInventory> inventories = new ArrayList<>();
+    public List<ArtifactRecipe> recipeList = new ArrayList<>();
+    public List<ArtifactCrafterInventory> inventorieList = new ArrayList<>();
     public SConfig config;
 
     public void init(Main instance) {
@@ -37,10 +35,10 @@ public class ArtifactService {
 
     public void initConfig(){
         if (!config.getFile().exists()) {
+            config.setDefault("CrafterBlock", "default:palm_log");
+
             List<ArtifactRecipe> recipes = new ArrayList<>();
-
             ArtifactRecipe recipe1 = new ArtifactRecipe("resloult1", new String[]{"artifact1", "artifact2", "artifact3"});
-
             recipes.add(recipe1);
             config.setDefault("recipes", recipes);
         }
@@ -48,11 +46,9 @@ public class ArtifactService {
 
     public void readRecipes() {
         Objects.requireNonNull(config.getList("recipes")).forEach(recipe -> {
-            Bukkit.getLogger().info("Reading recipe");
-            Bukkit.getLogger().info(recipe.toString());
+
             if (recipe instanceof ArtifactRecipe) {
-                recipes.add((ArtifactRecipe) recipe);
-                Bukkit.getLogger().info(recipe.toString());
+                recipeList.add((ArtifactRecipe) recipe);
             }
         });
     }
@@ -65,13 +61,13 @@ public class ArtifactService {
         Inventory inventory = Bukkit.createInventory(player, 27, "InventoryCrafter");
         CrafterInventory.setInventory(inventory);
 
-        inventories.add(CrafterInventory);
+        inventorieList.add(CrafterInventory);
 
         player.openInventory(inventory);
     }
 
     public boolean isInventoryCrafterInventory(Inventory inventory) {
-        for (ArtifactCrafterInventory artifactCrafterInventory : inventories) {
+        for (ArtifactCrafterInventory artifactCrafterInventory : inventorieList) {
             if (artifactCrafterInventory.getInventory() == inventory) {
                 return true;
             }
@@ -80,11 +76,9 @@ public class ArtifactService {
     }
 
     public boolean isArtifactRecipe(String[] ingredients) {
-        Bukkit.getLogger().info("Checking Input: " + Arrays.toString(ingredients));
 
-        for (ArtifactRecipe recipe : recipes) {
+        for (ArtifactRecipe recipe : recipeList) {
             if (Arrays.equals(recipe.getIngredients(), ingredients)) {
-                Bukkit.getLogger().info("Match found: " + recipe);
                 return true;
             }
         }
@@ -92,9 +86,8 @@ public class ArtifactService {
     }
 
     public ArtifactRecipe getArtifactRecipe(String[] ingredients) {
-        Bukkit.getLogger().info("Getting Recipe for: " + Arrays.toString(ingredients));
 
-        for (ArtifactRecipe recipe : recipes) {
+        for (ArtifactRecipe recipe : recipeList) {
             if (Arrays.equals(recipe.getIngredients(), ingredients)) {
                 return recipe;
             }

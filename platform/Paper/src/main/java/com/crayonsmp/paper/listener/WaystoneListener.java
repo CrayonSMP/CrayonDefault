@@ -13,9 +13,8 @@ import java.util.Objects;
 public class WaystoneListener implements Listener {
     @EventHandler
     public void onWaystonePlace(CustomBlockPlaceEvent event){
-        Bukkit.getLogger().info("Arlarm! Armarm!");
         if (event.customBlock().id().equals(Key.of(Objects.requireNonNull(Main.waystoneService.config.getString("waystone-id"))))){
-            Bukkit.getLogger().info("Waystone placed!");
+            //TODO:Logic
         }
     }
 }

@@ -4,24 +4,35 @@ import com.crayonsmp.paper.Main;
 import com.crayonsmp.paper.object.ArtifactRecipe;
 import com.crayonsmp.paper.services.ArtifactService;
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
+import net.momirealms.craftengine.bukkit.api.event.CustomBlockInteractEvent;
 import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ArtifactCrafterListener implements Listener {
     ArtifactService artifactService = Main.artifactService;
 
-    private static final List<Integer> INGREDIENT_SLOTS = Arrays.asList(2, 10, 18);
+    private static final List<Integer> Allowed_Slots = Arrays.asList(2, 10, 16, 18);
     private static final int RESULT_SLOT = 16;
+
+    @EventHandler
+    public void onCustomBlockInteract(CustomBlockInteractEvent event){
+        if (event.customBlock().id().equals(Key.of(Objects.requireNonNull(Main.artifactService.config.getString("CrafterBlock"))))) {
+            Player player = event.player();
+            Main.artifactService.openCrafterGUI(player);
+        }
+    }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
@@ -41,18 +52,42 @@ public class ArtifactCrafterListener implements Listener {
 
             int slot = event.getSlot();
 
-            if (!INGREDIENT_SLOTS.contains(slot) && slot != RESULT_SLOT) {
+            if (!Allowed_Slots.contains(slot) && slot != RESULT_SLOT) {
                 event.setCancelled(true);
                 return;
             }
 
             if (slot == RESULT_SLOT) {
-                if (!event.isLeftClick() || !event.isRightClick() || event.getCursor() != null && event.getCursor().getType() != Material.AIR) {
+                if (!event.isLeftClick() || !event.isRightClick() && event.getCursor().getType() != Material.AIR) {
                     event.setCancelled(true);
                     return;
                 }
 
                 if (event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) {
+
+                    ItemStack itemToEnchant = event.getCurrentItem();
+
+                    List<Enchantment> applicableEnchants = new ArrayList<>();
+
+                    for (Enchantment enchantment : Enchantment.values()) {
+                        if (enchantment.equals(Enchantment.MENDING)) {
+                            continue;
+                        }
+
+                        if (enchantment.canEnchantItem(itemToEnchant)) {
+                            applicableEnchants.add(enchantment);
+                        }
+                    }
+
+                    if (!applicableEnchants.isEmpty()) {
+                        Random random = new Random();
+                        Enchantment chosenEnchant = applicableEnchants.get(random.nextInt(applicableEnchants.size()));
+
+                        int maxLevel = chosenEnchant.getMaxLevel();
+                        int newLevel = maxLevel + 1;
+
+                        event.getCurrentItem().addUnsafeEnchantment(chosenEnchant, newLevel);
+                    }
 
                     Bukkit.getScheduler().runTaskLater(Main.getPlugin(Main.class), () -> {
                         removeIngredients(topInventory);
@@ -61,7 +96,7 @@ public class ArtifactCrafterListener implements Listener {
                 }
             }
 
-            if (INGREDIENT_SLOTS.contains(slot)) {
+            if (Allowed_Slots.contains(slot)) {
 
                 Bukkit.getScheduler().runTaskLater(Main.getPlugin(Main.class), () -> {
                     updateInventory(topInventory);
@@ -76,28 +111,20 @@ public class ArtifactCrafterListener implements Listener {
         ItemStack i2 = inventory.getItem(10);
         ItemStack i3 = inventory.getItem(18);
 
-        if (i1 == null || i2 == null || i3 == null) return;
         String i1S = getStringFromItem(i1, CraftEngineItems.getCustomItemId(i1));
         String i2S = getStringFromItem(i2, CraftEngineItems.getCustomItemId(i2));
         String i3S = getStringFromItem(i3, CraftEngineItems.getCustomItemId(i3));
 
         String[] ingredients = {i1S, i2S, i3S};
 
-        Bukkit.getLogger().info("Checking if recipe exists");
-
-        Bukkit.getLogger().info(Arrays.toString(ingredients));
-
         if (artifactService.isArtifactRecipe(ingredients)){
             ArtifactRecipe recipe = artifactService.getArtifactRecipe(ingredients);
             ItemStack resoult;
-            Bukkit.getLogger().info(recipe.getResoult());
             if (CraftEngineItems.byId(Key.from(recipe.getResoult())) != null){
                 resoult = CraftEngineItems.byId(Key.from(recipe.getResoult())).buildItemStack();
             } else {
                 resoult = new ItemStack(Objects.requireNonNull(Material.matchMaterial(recipe.getResoult())));
             }
-
-            Bukkit.getLogger().info(resoult.getType().toString());
 
             inventory.setItem(16, resoult);
         }
