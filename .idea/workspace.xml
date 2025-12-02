@@ -5,9 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="ArtifactCrafter Title in the config.">
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/main/java/com/crayonsmp/utils/ChatUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/main/java/com/crayonsmp/utils/ChatUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/dependency-reduced-pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/CrayonDefault.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/ArtifactCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/commands/ArtifactCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/commands/TwitchCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/commands/TwitchCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/impls/TwitchAPIimpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/impls/TwitchAPIimpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/ItemListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/listener/ItemListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/gui/ArtifactCrafterListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/listener/gui/ArtifactCrafterListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/ArtifactRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/object/ArtifactRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/Waystone.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/object/Waystone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/object/gui/ArtifactCrafterInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/object/gui/ArtifactCrafterInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/ArtifactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/services/ArtifactService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/TwitchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/services/TwitchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/WaystoneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/services/WaystoneService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/ChatUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/TwitchAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/utils/TwitchAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/config/ConfigUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/utils/config/ConfigUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/config/SConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/utils/config/SConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/restart.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/java/com/crayonsmp/paper/utils/tasks/RestartSchedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/platform/paper/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,12 +59,12 @@
     &quot;assignee&quot;: &quot;TamashiiMon&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/CrayonSMP/CrayonDefault.git&quot;,
-    &quot;accountId&quot;: &quot;11e71d7c-81ff-4cf4-8c1a-464f974be963&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ezTxmMC/CrayonDefault.git",
+    "accountId": "8702ff66-c17f-4d64-a53c-86095548d01b"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -52,6 +75,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.CrayonDefault [clean,install].executor": "Run",
     "Maven.CrayonDefault [clean].executor": "Run",
     "Maven.CrayonDefault [package].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -62,7 +86,7 @@
     "git-widget-placeholder": "dev",
     "jdk.selected.JDK": "24",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/tamashii/Dokumente/Projecte/CrayonSMP/Itellij/CrayonDefault",
+    "last_opened_file_path": "/Users/eztxmmc/GitHub/CrayonSMP/CrayonDefault",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -88,10 +112,16 @@
       <recent name="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/config" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+    </option>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
         <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
       </set>
     </attachedChunks>
   </component>
@@ -107,6 +137,7 @@
       <workItem from="1758846729936" duration="379000" />
       <workItem from="1758847124894" duration="2342000" />
       <workItem from="1758886193802" duration="757000" />
+      <workItem from="1764656314490" duration="1850000" />
     </task>
     <task id="LOCAL-00001" summary="Init.">
       <option name="closed" value="true" />

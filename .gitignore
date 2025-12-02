@@ -11,6 +11,9 @@ target/
 *.iws
 *.iml
 *.ipr
+*.xml
+!pom.xml
+./craft-engine/
 
 ### Eclipse ###
 .apt_generated

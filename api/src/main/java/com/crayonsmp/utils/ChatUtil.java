@@ -1,5 +1,8 @@
 package com.crayonsmp.utils;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -7,10 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatUtil {
+    private static final MiniMessage MM = MiniMessage.miniMessage();
 
     private static final Pattern START_WITH_COLOR_PATTERN = Pattern.compile(
-            "^(?:[&§][0-9a-fk-or]|#[a-fA-F0-9]{6}).*", // Non-capturing group for the alternatives
-            Pattern.CASE_INSENSITIVE // Hex-Codes können Groß- oder Kleinbuchstaben enthalten
+            "^(?:[&§][0-9a-fk-or]|#[a-fA-F0-9]{6}).*",
+            Pattern.CASE_INSENSITIVE
     );
 
     public static void sendMessage(CommandSender sender, String message) {
@@ -29,14 +33,22 @@ public class ChatUtil {
         return hex(translatedMessage);
     }
 
+    public static String alternateColor(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    public static Component miniMessage(String message, TagResolver... tagResolvers) {
+        return MM.deserialize(alternateColor(message), tagResolvers);
+    }
+
     public static String hex(String message) {
         Pattern pattern = Pattern.compile("<#[a-fA-F0-9]{6}>");
         Matcher matcher = pattern.matcher(message);
         StringBuffer result = new StringBuffer();
 
         while (matcher.find()) {
-            String fullHexCode = matcher.group(); // e.g., <#RRGGBB>
-            String hexCode = fullHexCode.substring(1, fullHexCode.length() - 1); // e.g., #RRGGBB
+            String fullHexCode = matcher.group();
+            String hexCode = fullHexCode.substring(1, fullHexCode.length() - 1);
 
             String replaceSharp = hexCode.replace('#', 'x');
 
