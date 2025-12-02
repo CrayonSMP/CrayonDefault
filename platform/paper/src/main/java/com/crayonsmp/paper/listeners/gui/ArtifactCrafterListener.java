@@ -1,7 +1,7 @@
-package com.crayonsmp.paper.listener.gui;
+package com.crayonsmp.paper.listeners.gui;
 
 import com.crayonsmp.paper.CrayonDefault;
-import com.crayonsmp.paper.object.ArtifactRecipe;
+import com.crayonsmp.paper.objects.ArtifactRecipe;
 import com.crayonsmp.paper.services.ArtifactService;
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
 import net.momirealms.craftengine.bukkit.api.event.CustomBlockInteractEvent;

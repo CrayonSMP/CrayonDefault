@@ -1,4 +1,4 @@
-package com.crayonsmp.paper.listener;
+package com.crayonsmp.paper.listeners;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import org.bukkit.Material;

@@ -1,4 +1,4 @@
-package com.crayonsmp.paper.listener;
+package com.crayonsmp.paper.listeners;
 
 import com.crayonsmp.paper.CrayonDefault;
 import net.momirealms.craftengine.bukkit.api.event.FurniturePlaceEvent;

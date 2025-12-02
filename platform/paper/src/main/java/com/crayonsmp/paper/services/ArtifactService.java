@@ -2,9 +2,9 @@ package com.crayonsmp.paper.services;
 
 import com.crayonsmp.paper.CrayonDefault;
 import com.crayonsmp.paper.commands.ArtifactCommand;
-import com.crayonsmp.paper.listener.gui.ArtifactCrafterListener;
-import com.crayonsmp.paper.object.ArtifactRecipe;
-import com.crayonsmp.paper.object.gui.ArtifactCrafterInventory;
+import com.crayonsmp.paper.listeners.gui.ArtifactCrafterListener;
+import com.crayonsmp.paper.objects.ArtifactRecipe;
+import com.crayonsmp.paper.objects.gui.ArtifactCrafterInventory;
 import com.crayonsmp.paper.utils.config.ConfigUtil;
 import com.crayonsmp.paper.utils.config.SConfig;
 import com.crayonsmp.utils.ChatUtil;

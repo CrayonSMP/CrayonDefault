@@ -1,8 +1,8 @@
 package com.crayonsmp.paper.services;
 
 import com.crayonsmp.paper.CrayonDefault;
-import com.crayonsmp.paper.listener.WaystoneListener;
-import com.crayonsmp.paper.object.Waystone;
+import com.crayonsmp.paper.listeners.WaystoneListener;
+import com.crayonsmp.paper.objects.Waystone;
 import com.crayonsmp.paper.utils.config.ConfigUtil;
 import com.crayonsmp.paper.utils.config.SConfig;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.crayonsmp.paper.object;
+package com.crayonsmp.paper.objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

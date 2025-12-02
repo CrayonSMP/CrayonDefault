@@ -1,8 +1,8 @@
 package com.crayonsmp.paper;
 
-import com.crayonsmp.paper.listener.ItemListener;
-import com.crayonsmp.paper.object.ArtifactRecipe;
-import com.crayonsmp.paper.object.Waystone;
+import com.crayonsmp.paper.listeners.ItemListener;
+import com.crayonsmp.paper.objects.ArtifactRecipe;
+import com.crayonsmp.paper.objects.Waystone;
 import com.crayonsmp.paper.services.ArtifactService;
 import com.crayonsmp.paper.services.TwitchService;
 import com.crayonsmp.paper.services.WaystoneService;
@@ -29,8 +29,11 @@ public final class CrayonDefault extends JavaPlugin {
         artifactService = new ArtifactService();
         artifactService.init(this);
 
+        //TODO: Finish Waystone Service.
+        /*
         waystoneService = new WaystoneService();
         waystoneService.init(this);
+         */
 
         twitchService = new TwitchService();
         twitchService.init(this);
