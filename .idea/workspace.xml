@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="Clean up.">
+    <list default="true" id="7c625dae-99e9-4ff7-8751-8b3625ae9368" name="Changes" comment="ArtifactCrafter Title in the config.">
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/WaystoneListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/gui/ArtifactCrafterListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/listener/gui/ArtifactCrafterListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/ArtifactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/services/ArtifactService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" beforeDir="false" afterPath="$PROJECT_DIR$/platform/Paper/src/main/java/com/crayonsmp/paper/utils/tasks/reload.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +148,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764621983551</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ArtifactCrafter Finish.">
+      <option name="closed" value="true" />
+      <created>1764627761948</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764627761948</updated>
+    </task>
+    <task id="LOCAL-00007" summary="ArtifactCrafter Title in the config.">
+      <option name="closed" value="true" />
+      <created>1764628010673</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764628010673</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +187,9 @@
     <MESSAGE value="Artifact System (Unfinished)" />
     <MESSAGE value="Clean up and other little thinks." />
     <MESSAGE value="Clean up." />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean up." />
+    <MESSAGE value="ArtifactCrafter Finish." />
+    <MESSAGE value="ArtifactCrafter Title in the config." />
+    <option name="LAST_COMMIT_MESSAGE" value="ArtifactCrafter Title in the config." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

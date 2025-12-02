@@ -24,21 +24,16 @@ public class reload implements Runnable{
                     counter--;
                 } else {
                     Bukkit.broadcastMessage(ChatUtil.format("<#b2b2b2>Initiating reload sequence now!"));
+                    Bukkit.broadcastMessage(ChatUtil.format("<#b2b2b2>This may take a few seconds..."));
 
-                    Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "cc reload");
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "meg reload");
-                        }
-                    }.runTaskLater(Main.getInstance(), 20L * 2);
+                    Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "meg reload");
 
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "mm reload");
                         }
-                    }.runTaskLater(Main.getInstance(), 20L * 3);
+                    }.runTaskLater(Main.getInstance(), 20L * 2);
 
                     new BukkitRunnable() {
                         @Override

@@ -48,7 +48,7 @@ public final class Main extends JavaPlugin {
 
     private void scheduleDailyTasks() {
         Scheduler reload = new Scheduler();
-        reload.schedule("0 7,13,17,20,23 * * *", new reload());
+        reload.schedule("0 7,13,15,17,20,23 * * *", new reload());
         reload.start();
 
         Scheduler restart = new Scheduler();
