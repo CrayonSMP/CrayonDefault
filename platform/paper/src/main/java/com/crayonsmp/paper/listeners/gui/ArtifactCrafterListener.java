@@ -29,6 +29,7 @@ public class ArtifactCrafterListener implements Listener {
         if (event.customBlock().id().equals(Key.of(Objects.requireNonNull(CrayonDefault.artifactService.config.getString("CrafterBlock"))))) {
             Player player = event.player();
             CrayonDefault.artifactService.openCrafterGUI(player);
+            event.setCancelled(true);
         }
     }
 
