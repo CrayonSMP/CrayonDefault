@@ -27,6 +27,7 @@ public class ArtifactCrafterListener implements Listener {
     @EventHandler
     public void onCustomBlockInteract(CustomBlockInteractEvent event){
         if (event.customBlock().id().equals(Key.of(Objects.requireNonNull(CrayonDefault.artifactService.config.getString("CrafterBlock"))))) {
+            if (event.player().isSneaking()) return;
             Player player = event.player();
             CrayonDefault.artifactService.openCrafterGUI(player);
             event.setCancelled(true);
