@@ -87,7 +87,7 @@ public class ArtifactService {
         return false;
     }
 
-    public boolean removeCrafterInventory(Player player) {
+    public void removeCrafterInventory(Player player) {
         for (ArtifactCrafterInventory artifactCrafterInventory : inventorieList) {
             if (artifactCrafterInventory.getOwner().equals(player)) {
                 ItemStack i1 = artifactCrafterInventory.getInventory().getItem(2);
@@ -96,7 +96,6 @@ public class ArtifactService {
                 artifactCrafterInventory.getInventory().clear();
                 player.getInventory().addItem(i1, i2, i3);
                 inventorieList.remove(artifactCrafterInventory);
-                return true;
             }
         }
     }
