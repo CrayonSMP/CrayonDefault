@@ -13,6 +13,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -84,6 +85,20 @@ public class ArtifactService {
             }
         }
         return false;
+    }
+
+    public boolean removeCrafterInventory(Player player) {
+        for (ArtifactCrafterInventory artifactCrafterInventory : inventorieList) {
+            if (artifactCrafterInventory.getOwner().equals(player)) {
+                ItemStack i1 = artifactCrafterInventory.getInventory().getItem(2);
+                ItemStack i2 = artifactCrafterInventory.getInventory().getItem(10);
+                ItemStack i3 = artifactCrafterInventory.getInventory().getItem(18);
+                artifactCrafterInventory.getInventory().clear();
+                player.getInventory().addItem(i1, i2, i3);
+                inventorieList.remove(artifactCrafterInventory);
+                return true;
+            }
+        }
     }
 
     public ArtifactRecipe getArtifactRecipe(String[] ingredients) {
