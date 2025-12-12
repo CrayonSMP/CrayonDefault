@@ -8,6 +8,7 @@ description: The default plugin for CrayonSMP
 website: Crayonsmp.com
 softdepend:
   - CraftEngine
+depend: [ ProtocolLib ]
 commands:
   twitch:
     description: Twitch command

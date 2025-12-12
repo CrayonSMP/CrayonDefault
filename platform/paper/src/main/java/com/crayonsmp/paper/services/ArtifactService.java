@@ -93,8 +93,8 @@ public class ArtifactService {
                 ItemStack i1 = artifactCrafterInventory.getInventory().getItem(2);
                 ItemStack i2 = artifactCrafterInventory.getInventory().getItem(10);
                 ItemStack i3 = artifactCrafterInventory.getInventory().getItem(18);
-                artifactCrafterInventory.getInventory().clear();
                 player.getInventory().addItem(i1, i2, i3);
+                artifactCrafterInventory.getInventory().clear();
                 inventorieList.remove(artifactCrafterInventory);
             }
         }

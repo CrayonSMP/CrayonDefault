@@ -1,5 +1,7 @@
 package com.crayonsmp.paper;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.crayonsmp.paper.listeners.ItemListener;
 import com.crayonsmp.paper.objects.ArtifactRecipe;
 import com.crayonsmp.paper.objects.Waystone;
@@ -18,6 +20,7 @@ public final class CrayonDefault extends JavaPlugin {
     public static ArtifactService artifactService;
     public static WaystoneService waystoneService;
     public static TwitchService twitchService;
+    public ProtocolManager protocolManager;
 
     @Override
     public void onEnable() {
@@ -46,6 +49,10 @@ public final class CrayonDefault extends JavaPlugin {
     @Override
     public void onDisable() {
 
+    }
+
+    public void onLoad() {
+        protocolManager = ProtocolLibrary.getProtocolManager();
     }
 
     private void scheduleDailyTasks() {
