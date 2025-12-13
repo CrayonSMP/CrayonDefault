@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -108,6 +109,20 @@ public class ArtifactCrafterListener implements Listener {
     }
 
     @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        Inventory topInventory = event.getView().getTopInventory();
+
+        if (artifactService.isInventoryCrafterInventory(topInventory)) {
+            for (int slot : event.getRawSlots()) {
+                if (slot < topInventory.getSize() && !Allowed_Slots.contains(slot) && slot != RESULT_SLOT) {
+                    event.setCancelled(true);
+                    return;
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onInventoryClose(InventoryCloseEvent event){
         Inventory topInventory = event.getView().getTopInventory();
         if (artifactService.isInventoryCrafterInventory(topInventory)) {
@@ -156,8 +171,15 @@ public class ArtifactCrafterListener implements Listener {
     }
 
     public void removeIngredients(Inventory inventory){
-        inventory.setItem(2, null);
-        inventory.setItem(10, null);
-        inventory.setItem(18, null);
+        ItemStack i1 = inventory.getItem(2);
+        ItemStack i2 = inventory.getItem(10);
+        ItemStack i3 = inventory.getItem(18);
+
+        assert i1 != null;
+        i1.setAmount(i1.getAmount() - 1);
+        assert i2 != null;
+        i2.setAmount(i2.getAmount() - 1);
+        assert i3 != null;
+        i3.setAmount(i3.getAmount() - 1);
     }
 }
