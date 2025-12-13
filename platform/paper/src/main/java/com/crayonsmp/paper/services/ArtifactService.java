@@ -11,6 +11,8 @@ import com.crayonsmp.utils.ChatUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -88,14 +90,35 @@ public class ArtifactService {
     }
 
     public void removeCrafterInventory(Player player) {
-        for (ArtifactCrafterInventory artifactCrafterInventory : inventorieList) {
-            if (artifactCrafterInventory.getOwner().equals(player)) {
-                ItemStack i1 = artifactCrafterInventory.getInventory().getItem(2);
-                ItemStack i2 = artifactCrafterInventory.getInventory().getItem(10);
-                ItemStack i3 = artifactCrafterInventory.getInventory().getItem(18);
-                player.getInventory().addItem(i1, i2, i3);
-                artifactCrafterInventory.getInventory().clear();
-                inventorieList.remove(artifactCrafterInventory);
+
+        if (isInventoryCrafterInventory(player.getOpenInventory().getTopInventory())) {
+            Inventory inventory = player.getOpenInventory().getTopInventory();
+
+            ItemStack i1 = inventory.getItem(2);
+            ItemStack i2 = inventory.getItem(10);
+            ItemStack i3 = inventory.getItem(18);
+
+            List<ItemStack> itemsToGive = new ArrayList<>();
+            if (i1 != null) itemsToGive.add(i1);
+            if (i2 != null) itemsToGive.add(i2);
+            if (i3 != null) itemsToGive.add(i3);
+
+            inventory.clear();
+            inventorieList.removeIf(inventory1 -> inventory1.getInventory() == inventory);
+
+            World world = player.getWorld();
+            Location dropLocation = player.getLocation();
+
+            for (ItemStack item : itemsToGive) {
+                if (item == null || item.getAmount() <= 0) continue;
+
+                HashMap<Integer, ItemStack> remainingItems = player.getInventory().addItem(item);
+
+                if (!remainingItems.isEmpty()) {
+                    for (ItemStack remainingItem : remainingItems.values()) {
+                        world.dropItemNaturally(dropLocation, remainingItem);
+                    }
+                }
             }
         }
     }
