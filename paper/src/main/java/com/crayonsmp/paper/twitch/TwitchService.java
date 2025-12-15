@@ -1,0 +1,56 @@
+package com.crayonsmp.paper.twitch;
+
+import com.crayonsmp.api.ICrayonDefault;
+import com.crayonsmp.api.twitch.ITwitchService;
+import com.crayonsmp.api.twitch.ITwitchServiceProvider;
+import com.crayonsmp.paper.command.TwitchCommand;
+import com.crayonsmp.api.config.ConfigurationUtil;
+import com.crayonsmp.api.config.Configuration;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+public class TwitchService implements ITwitchService {
+    private Configuration twitchConfig;
+    private ITwitchServiceProvider twitchServiceProvider;
+    private Map<String, String> streamers;
+
+    @Override
+    public void init(ICrayonDefault instance) {
+        JavaPlugin plugin = (JavaPlugin) instance;
+        twitchConfig = ConfigurationUtil.getConfig("twitch-config", plugin);
+        twitchServiceProvider = new TwitchServiceProvider(instance);
+        streamers = new HashMap<>();
+        if (!twitchConfig.getFile().exists()) {
+            twitchConfig.setDefault("twitch.client_id", "client_id");
+            twitchConfig.setDefault("twitch.client_secret", "client_secret");
+            twitchConfig.setDefault("streamers", streamers);
+            twitchConfig.save();
+        }
+        ConfigurationSection twitchConfigSection = twitchConfig.getConfigurationSection("streamers");
+        if (twitchConfigSection != null) {
+            for (String key : twitchConfigSection.getKeys(false)) {
+                streamers.put(key, twitchConfigSection.getString(key));
+            }
+        }
+        Objects.requireNonNull(plugin.getCommand("twitch")).setExecutor(new TwitchCommand());
+    }
+
+    @Override
+    public Configuration getTwitchConfig() {
+        return twitchConfig;
+    }
+
+    @Override
+    public ITwitchServiceProvider getTwitchServiceProvider() {
+        return twitchServiceProvider;
+    }
+
+    @Override
+    public Map<String, String> getStreamers() {
+        return streamers;
+    }
+}
