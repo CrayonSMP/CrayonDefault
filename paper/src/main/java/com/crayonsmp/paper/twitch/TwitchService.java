@@ -7,13 +7,12 @@ import com.crayonsmp.api.twitch.ITwitchServiceProvider;
 import com.crayonsmp.paper.command.TwitchCommand;
 import com.crayonsmp.api.config.ConfigurationUtil;
 import com.crayonsmp.api.config.Configuration;
+import com.google.common.util.concurrent.ListenableFutureTask;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class TwitchService implements ITwitchService {
     private Configuration twitchConfig;
@@ -43,6 +42,7 @@ public class TwitchService implements ITwitchService {
     }
 
     private void startScheduler(ICrayonDefault instance) {
+        Map<String, String> liveStreamers = new HashMap<>();
         Bukkit.getScheduler().runTaskTimerAsynchronously((JavaPlugin) instance, () -> {
             streamers.forEach((key, value) -> {
                 if (Bukkit.getPlayer(key) == null) {
@@ -53,9 +53,16 @@ public class TwitchService implements ITwitchService {
                     return;
                 }
                 if (!twitchServiceProvider.getStreamer(value).isLive()) {
+                    if (liveStreamers.containsKey(key)) {
+                        liveStreamers.remove(key);
+                    }
                     return;
                 }
 
+                if (liveStreamers.containsKey(key)) {
+                    return;
+                }
+                liveStreamers.put(key, value);
                 StreamerNowLiveEvent event = new StreamerNowLiveEvent(Bukkit.getPlayer(key), twitchServiceProvider.getStreamer(value));
                 Bukkit.getPluginManager().callEvent(event);
             });
