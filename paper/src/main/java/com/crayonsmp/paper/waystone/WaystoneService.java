@@ -127,16 +127,13 @@ public class WaystoneService implements IWaystoneService {
                 String actionId = "waystone-activate-" + waystoneUID;
                 paperDialog.action((builder) -> builder.label(buttonLabel).dynamicCustom(actionId));
                 dialogManager.registerCustomAction(actionId, (uuid, map) -> this.teleportToWaystone(player, currentWaystoneUID, waystone.uid()));
-                CrayonDefault.getInstance().getLogger().info("Button erstellt mit ID: " + actionId);
             }
         });
-        CrayonDefault.getInstance().getLogger().info("--- Erstelle 'Close'-Button ---");
         paperDialog.canCloseWithEscape(true);
         String closeid = "close";
         paperDialog.action((builder) -> builder.label(Component.text("Close")).dynamicCustom(closeid));
         dialogManager.registerCustomAction(closeid, (uuid, map) -> {
         });
-        CrayonDefault.getInstance().getLogger().info("'Close'-Button erstellt.");
         DialogOpener dialogOpener = paperDialog.opener();
         dialogOpener.open(playerUUID);
     }
