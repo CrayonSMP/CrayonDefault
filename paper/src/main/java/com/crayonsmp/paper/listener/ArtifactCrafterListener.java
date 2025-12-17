@@ -41,63 +41,99 @@ public class ArtifactCrafterListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event){
+    public void onInventoryClick(InventoryClickEvent event) {
         Inventory topInventory = event.getView().getTopInventory();
-        if (event.getClickedInventory() == null) {
-            return;
-        }
+        if (event.getClickedInventory() == null) return;
+
         if (artifactService.isCrafterInventory(topInventory)) {
+            Player player = (Player) event.getWhoClicked();
+
+            // --- LOGIK FÜR DAS SPIELER-INVENTAR (Items in den Crafter shiften) ---
             if (!event.getClickedInventory().equals(topInventory)) {
-                if (event.isShiftClick()) {
+                if (event.isShiftClick() && event.getCurrentItem() != null) {
+                    ItemStack clickedItem = event.getCurrentItem();
+
+                    // Suche einen freien Slot in den erlaubten Eingabe-Slots
+                    int targetSlot = -1;
+                    for (int slot : new int[]{3, 11, 19}) { // Nur Eingabe-Slots, nicht der Result-Slot (16)
+                        ItemStack itemInSlot = topInventory.getItem(slot);
+                        if (itemInSlot == null || itemInSlot.getType() == Material.AIR) {
+                            targetSlot = slot;
+                            break;
+                        }
+                    }
+
+                    if (targetSlot != -1) {
+                        topInventory.setItem(targetSlot, clickedItem.clone());
+                        event.setCurrentItem(null);
+                        updateInventory(topInventory);
+                    }
                     event.setCancelled(true);
                 }
                 return;
             }
+
+            // --- LOGIK FÜR DAS CRAFTER-INVENTAR (Eingabe & Resultat) ---
             int slot = event.getSlot();
             if (!Allowed_Slots.contains(slot) && slot != RESULT_SLOT) {
                 event.setCancelled(true);
                 return;
             }
+
             if (slot == RESULT_SLOT) {
-                if (!event.isLeftClick() || !event.isRightClick() && event.getCursor().getType() != Material.AIR) {
+                ItemStack resultItem = event.getCurrentItem();
+                if (resultItem == null || resultItem.getType() == Material.AIR) {
                     event.setCancelled(true);
                     return;
                 }
-                if (event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) {
-                    ItemStack itemToEnchant = event.getCurrentItem();
-                    List<Enchantment> applicableEnchants = new ArrayList<>();
-                    for (Enchantment enchantment : Enchantment.values()) {
-                        if (enchantment.equals(Enchantment.MENDING)) {
-                            continue;
-                        }
-                        if (enchantment.canEnchantItem(itemToEnchant)) {
-                            applicableEnchants.add(enchantment);
-                        }
+
+                if (event.isShiftClick()) {
+                    HashMap<Integer, ItemStack> leftover = player.getInventory().addItem(resultItem);
+                    if (!leftover.isEmpty()) {
+                        event.setCancelled(true);
+                        return;
                     }
-                    if (!applicableEnchants.isEmpty()) {
-                        Random random = new Random();
-                        Enchantment chosenEnchant = applicableEnchants.get(random.nextInt(applicableEnchants.size()));
-                        int maxLevel = chosenEnchant.getMaxLevel();
-                        int newLevel = maxLevel + 1;
-                        event.getCurrentItem().addUnsafeEnchantment(chosenEnchant, newLevel);
+                } else {
+                    if (event.getCursor() != null && event.getCursor().getType() != Material.AIR) {
+                        event.setCancelled(true);
+                        return;
                     }
-                    Bukkit.getScheduler().runTaskLater(CrayonDefault.getPlugin(CrayonDefault.class), () -> {
-                        removeIngredients(topInventory);
-                        updateInventory(topInventory);
-                    }, 1L);
+                }
+
+                applyRandomEnchantment(resultItem);
+
+                Bukkit.getScheduler().runTaskLater(CrayonDefault.getPlugin(CrayonDefault.class), () -> {
+                    removeIngredients(topInventory);
+                    updateInventory(topInventory);
+                }, 1L);
+
+                if (event.isShiftClick()) {
+                    event.setCurrentItem(null);
                 }
             }
 
             if (Allowed_Slots.contains(slot)) {
-
                 Bukkit.getScheduler().runTaskLater(CrayonDefault.getPlugin(CrayonDefault.class), () -> {
                     updateInventory(topInventory);
                 }, 1L);
-
             }
         }
     }
 
+    private void applyRandomEnchantment(ItemStack itemToEnchant) {
+        List<Enchantment> applicableEnchants = new ArrayList<>();
+        for (Enchantment enchantment : Enchantment.values()) {
+            if (enchantment.equals(Enchantment.MENDING)) continue;
+            if (enchantment.canEnchantItem(itemToEnchant)) {
+                applicableEnchants.add(enchantment);
+            }
+        }
+        if (!applicableEnchants.isEmpty()) {
+            Random random = new Random();
+            Enchantment chosenEnchant = applicableEnchants.get(random.nextInt(applicableEnchants.size()));
+            itemToEnchant.addUnsafeEnchantment(chosenEnchant, chosenEnchant.getMaxLevel() + 1);
+        }
+    }
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
         Inventory topInventory = event.getView().getTopInventory();
