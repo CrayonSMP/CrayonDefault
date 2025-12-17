@@ -22,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public class ArtifactCrafterListener implements Listener {
-    private static final List<Integer> Allowed_Slots = Arrays.asList(2, 10, 16, 18);
+    private static final List<Integer> Allowed_Slots = Arrays.asList(3, 11, 16, 19);
     private static final int RESULT_SLOT = 16;
     private final ArtifactService artifactService;
 
@@ -120,9 +120,9 @@ public class ArtifactCrafterListener implements Listener {
     }
 
     public void updateInventory(Inventory inventory){
-        ItemStack i1 = inventory.getItem(2);
-        ItemStack i2 = inventory.getItem(10);
-        ItemStack i3 = inventory.getItem(18);
+        ItemStack i1 = inventory.getItem(3);
+        ItemStack i2 = inventory.getItem(11);
+        ItemStack i3 = inventory.getItem(19);
 
         String i1S = getStringFromItem(i1, CraftEngineItems.getCustomItemId(i1));
         String i2S = getStringFromItem(i2, CraftEngineItems.getCustomItemId(i2));
@@ -160,9 +160,9 @@ public class ArtifactCrafterListener implements Listener {
     }
 
     public void removeIngredients(Inventory inventory){
-        ItemStack i1 = inventory.getItem(2);
-        ItemStack i2 = inventory.getItem(10);
-        ItemStack i3 = inventory.getItem(18);
+        ItemStack i1 = inventory.getItem(3);
+        ItemStack i2 = inventory.getItem(11);
+        ItemStack i3 = inventory.getItem(19);
 
         assert i1 != null;
         i1.setAmount(i1.getAmount() - 1);

@@ -75,9 +75,9 @@ public class ArtifactService implements IArtifactService {
             return;
         }
         Inventory inventory = player.getOpenInventory().getTopInventory();
-        ItemStack i1 = inventory.getItem(2);
-        ItemStack i2 = inventory.getItem(10);
-        ItemStack i3 = inventory.getItem(18);
+        ItemStack i1 = inventory.getItem(3);
+        ItemStack i2 = inventory.getItem(11);
+        ItemStack i3 = inventory.getItem(19);
         List<ItemStack> itemsToGive = new ArrayList<>();
         if (i1 != null) itemsToGive.add(i1);
         if (i2 != null) itemsToGive.add(i2);
