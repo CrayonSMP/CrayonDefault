@@ -103,62 +103,81 @@ public class WaystoneService implements IWaystoneService {
     public void openWaystoneGUI(Player player, String currentWaystoneUID) {
         List<IWaystone> playerWaystones = new ArrayList<>();
         PaperDialogManager dialogManager = CrayonDefault.getInstance().getDialogManager();
+        Waystone currentWaystone = (Waystone) getWaystone(currentWaystoneUID);
         UUID playerUUID = player.getUniqueId();
+
         this.waystones.forEach((waystone) -> {
             if (waystone.players().contains(playerUUID.toString())) {
                 playerWaystones.add(waystone);
             }
         });
+
         if (playerWaystones.isEmpty()) {
-            player.sendMessage(ChatUtil.miniMessage("<red>Du hast noch keine Waystones aktiviert."));
+            player.sendActionBar(ChatUtil.miniMessage("<red>You dont have any unlocked waystone."));
             return;
         }
-        PaperMultiActionDialog paperDialog = ((PaperMultiActionDialog) dialogManager.createMultiActionDialog().title("Waystones")).canCloseWithEscape(true).afterAction(Dialog.AfterAction.CLOSE).body((builder) -> builder.text().text("Teleport you to a Waystone."));
+
+        PaperMultiActionDialog paperDialog = ((PaperMultiActionDialog) dialogManager.createMultiActionDialog()
+                .title("Waystone: " + currentWaystone.name())
+                .canCloseWithEscape(true)
+                .afterAction(Dialog.AfterAction.CLOSE)
+                .body((builder) -> builder.text().text("Travel to a Waystone.")));
+
+        List<String> registeredActions = new ArrayList<>();
+
         playerWaystones.forEach((waystone) -> {
-            String waystoneName = waystone.name();
             String waystoneUID = waystone.uid();
             if (waystoneUID != null) {
+                String waystoneName = waystone.name();
                 Component buttonLabel;
+
                 if (waystoneName != null && !waystoneName.isEmpty()) {
-                    buttonLabel = ChatUtil.miniMessage(waystoneName + " -> " + this.levelCostsToTeleport(this.getWaystone(currentWaystoneUID), waystone));
+                    buttonLabel = ChatUtil.miniMessage(waystoneName + " <gray>-> <gold>" +
+                            this.levelCostsToTeleport(currentWaystone, waystone) + " Lvl");
                 } else {
-                    buttonLabel = Component.text("Unbekannter Waystone [" + waystoneUID + "]");
+                    buttonLabel = Component.text("Unknow Waystone [" + waystoneUID + "]");
                 }
-                String actionId = "waystone-activate-" + waystoneUID;
+
+                String actionId = "ws_tp_" + playerUUID + "_" + waystoneUID;
+                registeredActions.add(actionId);
+
                 paperDialog.action((builder) -> builder.label(buttonLabel).dynamicCustom(actionId));
-                dialogManager.registerCustomAction(actionId, (uuid, map) -> this.teleportToWaystone(player, currentWaystoneUID, waystone.uid()));
+
+                dialogManager.registerCustomAction(actionId, (clickedUuid, map) -> {
+                    Player clickingPlayer = org.bukkit.Bukkit.getPlayer(clickedUuid);
+                    if (clickingPlayer != null) {
+                        this.teleportToWaystone(clickingPlayer, currentWaystoneUID, waystoneUID);
+                    }
+
+                    registeredActions.forEach(dialogManager::unregisterCustomAction);
+                });
             }
         });
-        paperDialog.canCloseWithEscape(true);
-        String closeid = "close";
-        paperDialog.action((builder) -> builder.label(Component.text("Close")).dynamicCustom(closeid));
-        dialogManager.registerCustomAction(closeid, (uuid, map) -> {
-        });
-        DialogOpener dialogOpener = paperDialog.opener();
-        dialogOpener.open(playerUUID);
+
+        paperDialog.opener().open(playerUUID);
     }
 
     public void teleportToWaystone(Player player, String oldUID, String newUID) {
         IWaystone newWaystone = this.getWaystone(newUID);
         IWaystone oldWaystone = this.getWaystone(oldUID);
         if (newWaystone == null) {
-            player.sendMessage(ChatUtil.miniMessage("§cError: Waystone not found."));
+            player.sendActionBar(ChatUtil.miniMessage("§cError: Waystone not found."));
             return;
         }
         Location safeLocation = this.findSafeLocation(newWaystone.location());
         if (safeLocation == null) {
-            player.sendMessage(ChatUtil.miniMessage("§cTeleportation ignored! The Waystone-Location ist blocked."));
+            player.sendActionBar(ChatUtil.miniMessage("§cTeleportation ignored! The Waystone-Location ist blocked."));
             return;
         }
-        int expCost = this.expCostsToTeleport(oldWaystone, newWaystone);
-        if (expCost > player.getTotalExperience()) {
-            player.sendMessage(ChatUtil.miniMessage("§cYou dont have enough xp"));
+        int lvlCost = this.levelCostsToTeleport(oldWaystone, newWaystone);
+        if (lvlCost > player.getLevel()) {
+            player.sendActionBar(ChatUtil.miniMessage("§cYou dont have enough levels"));
             return;
         }
-        player.giveExp(-expCost);
+        player.giveExp(-lvlCost);
         player.teleport(safeLocation);
-        String var10001 = this.levelCostsToTeleport(oldWaystone, newWaystone);
-        player.sendMessage(ChatUtil.miniMessage("Your teleported for " + var10001));
+
+        player.sendActionBar(ChatUtil.miniMessage("§aYou travel to: " + oldWaystone.name()));
     }
 
     private Location findSafeLocation(Location baseLocation) {
@@ -200,11 +219,11 @@ public class WaystoneService implements IWaystoneService {
             return 5000;
         }
         double distance = fromLoc.distance(toLoc);
-        double rawCost = distance * (double) 0.5F;
+        double rawCost = distance * (double) 0.15F;
         return (int) Math.ceil(rawCost);
     }
 
-    public String levelCostsToTeleport(IWaystone from, IWaystone to) {
+    public int levelCostsToTeleport(IWaystone from, IWaystone to) {
         int totalXpCost = this.expCostsToTeleport(from, to);
         int currentLevel = 0;
         int remainingXpCost = totalXpCost;
@@ -217,12 +236,9 @@ public class WaystoneService implements IWaystoneService {
             } else {
                 xpToNextLevel = 9 * currentLevel - 158;
             }
+
             if (remainingXpCost < xpToNextLevel) {
-                String levelPart = currentLevel > 0 ? currentLevel + " Level" : "";
-                String xpPart = remainingXpCost <= 0 && currentLevel != 0 ? "" : remainingXpCost + " EXP";
-                String andSeparator = currentLevel > 0 && remainingXpCost > 0 ? " und " : "";
-                String result = levelPart + andSeparator + xpPart;
-                return result.trim();
+                return currentLevel;
             }
             remainingXpCost -= xpToNextLevel;
             ++currentLevel;

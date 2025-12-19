@@ -60,7 +60,7 @@ public class WaystoneListener implements Listener {
                     }
 
                     this.waystoneService.addPlayerToWaystone(waystone.uid(), player.getUniqueId().toString());
-                    player.sendMessage("§aWaystone aktiviert.");
+                    player.sendActionBar("§aWaystone unlocked.");
                     break;
                 }
             }

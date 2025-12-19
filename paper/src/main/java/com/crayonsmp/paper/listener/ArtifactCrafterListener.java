@@ -87,6 +87,8 @@ public class ArtifactCrafterListener implements Listener {
                     return;
                 }
 
+                applyRandomEnchantment(resultItem);
+
                 if (event.isShiftClick()) {
                     HashMap<Integer, ItemStack> leftover = player.getInventory().addItem(resultItem);
                     if (!leftover.isEmpty()) {
@@ -100,7 +102,6 @@ public class ArtifactCrafterListener implements Listener {
                     }
                 }
 
-                applyRandomEnchantment(resultItem);
 
                 Bukkit.getScheduler().runTaskLater(CrayonDefault.getPlugin(CrayonDefault.class), () -> {
                     removeIngredients(topInventory);
@@ -124,6 +125,8 @@ public class ArtifactCrafterListener implements Listener {
         List<Enchantment> applicableEnchants = new ArrayList<>();
         for (Enchantment enchantment : Enchantment.values()) {
             if (enchantment.equals(Enchantment.MENDING)) continue;
+            if (enchantment.equals(Enchantment.VANISHING_CURSE)) continue;
+            if (enchantment.equals(Enchantment.SILK_TOUCH)) continue;
             if (enchantment.canEnchantItem(itemToEnchant)) {
                 applicableEnchants.add(enchantment);
             }
