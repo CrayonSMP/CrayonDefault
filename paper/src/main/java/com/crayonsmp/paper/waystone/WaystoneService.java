@@ -12,16 +12,15 @@ import io.github.projectunified.unidialog.core.dialog.Dialog;
 import io.github.projectunified.unidialog.core.opener.DialogOpener;
 import io.github.projectunified.unidialog.paper.PaperDialogManager;
 import io.github.projectunified.unidialog.paper.dialog.PaperMultiActionDialog;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class WaystoneService implements IWaystoneService {
     private Configuration config;
@@ -127,13 +126,23 @@ public class WaystoneService implements IWaystoneService {
 
         playerWaystones.forEach((waystone) -> {
             String waystoneUID = waystone.uid();
+            int lvlCost = this.levelCostsToTeleport(currentWaystone, waystone);
             if (waystoneUID != null) {
                 String waystoneName = waystone.name();
                 Component buttonLabel;
 
                 if (waystoneName != null && !waystoneName.isEmpty()) {
-                    buttonLabel = ChatUtil.miniMessage(waystoneName + " <gray>-> <gold>" +
-                            this.levelCostsToTeleport(currentWaystone, waystone) + " Lvl");
+                    String levelArrow;
+                    levelArrow = "%shift_raw_6%<white><shadow:#1b1c1b00><font:minecraft:gui>%image_raw_artifacs:level_1%</font></shadow>%shift_raw_-4%";
+                    if (lvlCost >= 11) levelArrow = "%shift_raw_6%<white><shadow:#1b1c1b00><font:minecraft:gui>%image_raw_artifacs:level_2%</font></shadow>%shift_raw_-4%";
+                    if (lvlCost >= 21) levelArrow = "%shift_raw_6%<white><shadow:#1b1c1b00><font:minecraft:gui>%image_raw_artifacs:level_3%</font></shadow>%shift_raw_-4%";
+
+                    String lvlCostToTeleport = "<#c8ff8f>" + this.levelCostsToTeleport(currentWaystone, waystone);
+                    if (lvlCost == 0) {
+                        lvlCostToTeleport = "";
+                        levelArrow = "";
+                    }
+                    buttonLabel = ChatUtil.miniMessage(PlaceholderAPI.setPlaceholders(player, waystoneName + levelArrow + lvlCostToTeleport));
                 } else {
                     buttonLabel = Component.text("Unknow Waystone [" + waystoneUID + "]");
                 }
@@ -161,42 +170,50 @@ public class WaystoneService implements IWaystoneService {
         IWaystone newWaystone = this.getWaystone(newUID);
         IWaystone oldWaystone = this.getWaystone(oldUID);
         if (newWaystone == null) {
-            player.sendActionBar(ChatUtil.miniMessage("§cError: Waystone not found."));
+            player.sendActionBar(ChatUtil.miniMessage("<red>Error: Waystone not found."));
             return;
         }
         Location safeLocation = this.findSafeLocation(newWaystone.location());
         if (safeLocation == null) {
-            player.sendActionBar(ChatUtil.miniMessage("§cTeleportation ignored! The Waystone-Location ist blocked."));
+            player.sendActionBar(ChatUtil.miniMessage("<red>Teleportation ignored! The Waystone-Location ist blocked."));
             return;
         }
         int lvlCost = this.levelCostsToTeleport(oldWaystone, newWaystone);
         if (lvlCost > player.getLevel()) {
-            player.sendActionBar(ChatUtil.miniMessage("§cYou dont have enough levels"));
+            player.sendActionBar(ChatUtil.miniMessage("<red>You dont have enough levels"));
             return;
         }
-        player.giveExp(-lvlCost);
+        player.giveExpLevels(-lvlCost);
         player.teleport(safeLocation);
 
-        player.sendActionBar(ChatUtil.miniMessage("§aYou travel to: " + oldWaystone.name()));
+        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
+        player.sendActionBar(ChatUtil.miniMessage("<white>You travel to: " + oldWaystone.name()));
     }
 
     private Location findSafeLocation(Location baseLocation) {
         Location location = baseLocation.clone();
+        List<Location> checkedLocations = new ArrayList<>();
         for (int x = -2; x <= 2; ++x) {
             for (int y = -2; y <= 2; ++y) {
                 for (int z = -2; z <= 2; ++z) {
+                    if (x == 0 && y == 0 || y == 1 && z == 0) continue;
                     Location checkLocation = location.clone().add(x, y, z);
                     if (this.isSafe(checkLocation)) {
-                        Location targetLoc = checkLocation.add(0.5F, 0.0F, 0.5F);
-                        targetLoc.setYaw(baseLocation.getYaw());
-                        targetLoc.setPitch(baseLocation.getPitch());
-                        return targetLoc;
+                        checkedLocations.add(checkLocation);
                     }
                 }
             }
         }
 
-        return null;
+        if (checkedLocations.isEmpty()) {
+            return null;
+        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(0, checkedLocations.size());
+        Location targetLoc = checkedLocations.get(randomIndex).add(0.5F, 0.0F, 0.5F);
+        targetLoc.setYaw(baseLocation.getYaw());
+        targetLoc.setPitch(baseLocation.getPitch());
+        return targetLoc;
     }
 
     private boolean isSafe(Location loc) {
@@ -216,10 +233,10 @@ public class WaystoneService implements IWaystoneService {
         Location fromLoc = from.location();
         Location toLoc = to.location();
         if (!fromLoc.getWorld().equals(toLoc.getWorld())) {
-            return 5000;
+            return 900;
         }
         double distance = fromLoc.distance(toLoc);
-        double rawCost = distance * (double) 0.15F;
+        double rawCost = distance * (double) 0.1F;
         return (int) Math.ceil(rawCost);
     }
 

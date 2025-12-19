@@ -11,6 +11,7 @@ import net.momirealms.craftengine.bukkit.api.event.FurnitureInteractEvent;
 import net.momirealms.craftengine.bukkit.api.event.FurniturePlaceEvent;
 import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -60,7 +61,8 @@ public class WaystoneListener implements Listener {
                     }
 
                     this.waystoneService.addPlayerToWaystone(waystone.uid(), player.getUniqueId().toString());
-                    player.sendActionBar("§aWaystone unlocked.");
+                    player.sendActionBar("Waystone " + waystone.name() + " unlocked.");
+                    player.playSound(player, Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0F, 1.0F);
                     break;
                 }
             }
