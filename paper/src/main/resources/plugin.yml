@@ -13,3 +13,4 @@ commands:
     description: Twitch command
     usage: /twitch <register|unregister|info> <twitchname>
   artifactcrafter:
+  reload:

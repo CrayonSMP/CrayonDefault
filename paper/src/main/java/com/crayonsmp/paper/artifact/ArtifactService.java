@@ -2,7 +2,6 @@ package com.crayonsmp.paper.artifact;
 
 import com.crayonsmp.api.ICrayonDefault;
 import com.crayonsmp.api.artifact.IArtifactService;
-import com.crayonsmp.paper.command.ArtifactCommand;
 import com.crayonsmp.paper.listener.ArtifactCrafterListener;
 import com.crayonsmp.api.config.ConfigurationUtil;
 import com.crayonsmp.api.config.Configuration;
@@ -34,7 +33,6 @@ public class ArtifactService implements IArtifactService {
         config = ConfigurationUtil.getConfig("artifact-config", plugin);
         initConfig();
         readRecipes();
-        Objects.requireNonNull(plugin.getCommand("artifactcrafter")).setExecutor(new ArtifactCommand());
         plugin.getServer().getPluginManager().registerEvents(new ArtifactCrafterListener(this), plugin);
     }
 

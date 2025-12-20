@@ -7,6 +7,7 @@ import com.crayonsmp.api.provider.CrayonDefaultProvider;
 import com.crayonsmp.api.artifact.IArtifactService;
 import com.crayonsmp.api.twitch.ITwitchService;
 import com.crayonsmp.api.waystone.IWaystoneService;
+import com.crayonsmp.paper.command.ReloadCommand;
 import com.crayonsmp.paper.listener.ItemListener;
 import com.crayonsmp.paper.artifact.ArtifactRecipe;
 import com.crayonsmp.paper.waystone.Waystone;
@@ -22,6 +23,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Objects;
 
 public final class CrayonDefault extends JavaPlugin implements ICrayonDefault {
     @Getter
@@ -54,6 +57,8 @@ public final class CrayonDefault extends JavaPlugin implements ICrayonDefault {
         getServer().getPluginManager().registerEvents(new ItemListener(), this);
         scheduleDailyTasks();
         dialogManager.register();
+
+        Objects.requireNonNull(getServer().getPluginCommand("reload")).setExecutor(new ReloadCommand());
     }
 
     @Override
@@ -68,11 +73,8 @@ public final class CrayonDefault extends JavaPlugin implements ICrayonDefault {
     }
 
     private void scheduleDailyTasks() {
-        Scheduler reload = new Scheduler();
-        reload.schedule("0 7,13,15,17,20,23 * * *", new ReloadSchedule());
-        reload.start();
         Scheduler restart = new Scheduler();
-        restart.schedule("0 7,15,23 * * *", new RestartSchedule());
+        restart.schedule("0 4 * * *", new RestartSchedule());
         restart.start();
 
     }
