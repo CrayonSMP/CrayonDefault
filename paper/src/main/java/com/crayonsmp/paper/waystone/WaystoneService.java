@@ -236,7 +236,7 @@ public class WaystoneService implements IWaystoneService {
             return 900;
         }
         double distance = fromLoc.distance(toLoc);
-        double rawCost = distance * (double) 0.1F;
+        double rawCost = distance * (double) 0.02F;
         return (int) Math.ceil(rawCost);
     }
 
