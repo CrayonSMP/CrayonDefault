@@ -34,9 +34,11 @@ public class ArtifactCrafterListener implements Listener {
     public void onCustomBlockInteract(CustomBlockInteractEvent event){
         if (event.customBlock().id().equals(Key.of(Objects.requireNonNull(this.artifactService.getConfig().getString("CrafterBlock"))))) {
             if (event.player().isSneaking()) return;
-            Player player = event.player();
-            this.artifactService.openCrafterGUI(player);
-            event.setCancelled(true);
+            if (event.action().equals(CustomBlockInteractEvent.Action.RIGHT_CLICK)) {
+                Player player = event.player();
+                this.artifactService.openCrafterGUI(player);
+                event.setCancelled(true);
+            }
         }
     }
 

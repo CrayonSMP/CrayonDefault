@@ -8,6 +8,7 @@ import com.crayonsmp.api.artifact.IArtifactService;
 import com.crayonsmp.api.twitch.ITwitchService;
 import com.crayonsmp.api.waystone.IWaystoneService;
 import com.crayonsmp.paper.command.ReloadCommand;
+import com.crayonsmp.paper.command.RestartCommand;
 import com.crayonsmp.paper.listener.ItemListener;
 import com.crayonsmp.paper.artifact.ArtifactRecipe;
 import com.crayonsmp.paper.waystone.Waystone;
@@ -59,6 +60,7 @@ public final class CrayonDefault extends JavaPlugin implements ICrayonDefault {
         dialogManager.register();
 
         Objects.requireNonNull(getServer().getPluginCommand("reload")).setExecutor(new ReloadCommand());
+        Objects.requireNonNull(getServer().getPluginCommand("restart")).setExecutor(new RestartCommand());
     }
 
     @Override

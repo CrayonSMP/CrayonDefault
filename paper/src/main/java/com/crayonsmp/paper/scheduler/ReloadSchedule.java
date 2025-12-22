@@ -20,19 +20,24 @@ public class ReloadSchedule implements Runnable {
                     case 0 -> {
                         Bukkit.broadcast(ChatUtil.miniMessage("<#b2b2b2>Initiating reload sequence now!"));
                         Bukkit.broadcast(ChatUtil.miniMessage("<#b2b2b2>This may take a few seconds..."));
+
+                        // Befehle abfeuern
                         Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "meg reload");
-                        Bukkit.getScheduler().runTaskLater(CrayonDefault.getInstance(), () -> Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "mm reload"), 20L * 2);
+
+                        Bukkit.getScheduler().runTaskLater(CrayonDefault.getInstance(), () ->
+                                Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "mm reload"), 40L); // 20L * 2
+
                         Bukkit.getScheduler().runTaskLater(CrayonDefault.getInstance(), () -> {
                             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "ce reload all");
                             Bukkit.broadcast(ChatUtil.miniMessage("<#b2b2b2>Plugin reload sequence completed!"));
-                        }, 20L * 5);
+                        }, 100L);
 
                         this.cancel();
+                        return;
                     }
                 }
-                if (counter == 0) return;
                 counter--;
             }
-        }.runTask(CrayonDefault.getInstance());
+        }.runTaskTimer(CrayonDefault.getInstance(), 0L, 20L);
     }
 }
