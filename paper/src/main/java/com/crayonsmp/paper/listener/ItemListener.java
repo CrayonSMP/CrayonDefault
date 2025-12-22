@@ -1,6 +1,7 @@
 package com.crayonsmp.paper.listener;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -24,120 +25,68 @@ public class ItemListener implements Listener {
     private static final NamespacedKey OLD_MODEL_KEY = NamespacedKey.fromString("minecraft:copper_helmet");
     private static final NamespacedKey NEW_MODEL_KEY = NamespacedKey.fromString("minecraft:copper_helmet_new");
 
-    @EventHandler
+    private boolean applyFixes(ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) return false;
+
+        boolean changed = false;
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return false;
+
+        if (meta.hasEnchant(Enchantment.MENDING)) {
+            meta.removeEnchant(Enchantment.MENDING);
+            changed = true;
+        }
+
+        if (item.getType() == Material.COPPER_HELMET) {
+            NamespacedKey currentModel = meta.getItemModel();
+            if (currentModel == null || Objects.equals(currentModel, OLD_MODEL_KEY)) {
+                meta.setItemModel(NEW_MODEL_KEY);
+
+                EquippableComponent equippable = meta.getEquippable();
+                equippable.setModel(null);
+                meta.setEquippable(equippable);
+
+                changed = true;
+            }
+        }
+
+        if (changed) {
+            item.setItemMeta(meta);
+        }
+        return changed;
+    }
+
+    @EventHandler(ignoreCancelled = true)
     public void onItemPickup(EntityPickupItemEvent event) {
-        ItemStack item = event.getItem().getItemStack();
-        ItemStack updatedArmorItem = updateArmorModel(item);
-        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
-        event.getItem().setItemStack(updatedItem);
+        applyFixes(event.getItem().getItemStack());
+    }
+
+    @EventHandler
+    public void onInventoryClick(org.bukkit.event.inventory.InventoryClickEvent event) {
+        boolean changed = applyFixes(event.getCurrentItem());
+        if (applyFixes(event.getCursor())) changed = true;
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onHopperMove(InventoryMoveItemEvent event) {
+        applyFixes(event.getItem());
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        updatePlayerArmorCustomModels(player);
+        for (ItemStack item : event.getPlayer().getInventory().getContents()) {
+            applyFixes(item);
+        }
     }
 
-    @EventHandler
-    public void onInventoryMove(InventoryMoveItemEvent event) {
-        ItemStack item = event.getItem();
-        ItemStack updatedArmorItem = updateArmorModel(item);
-        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
-        event.setItem(updatedItem);
-    }
-
-    @EventHandler
-    public void onInventoryDrag(InventoryMoveItemEvent event) {
-        ItemStack item = event.getItem();
-        ItemStack updatedArmorItem = updateArmorModel(item);
-        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
-        event.setItem(updatedItem);
-    }
-
-    @EventHandler
-    public void onInventoryClick(InventoryMoveItemEvent event) {
-        ItemStack item = event.getItem();
-        ItemStack updatedArmorItem = updateArmorModel(item);
-        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
-        event.setItem(updatedItem);
-    }
-
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onMobSpawn(EntitySpawnEvent event) {
-        if (!(event.getEntity() instanceof LivingEntity livingEntity)) {
-            return;
-        }
-        EntityEquipment equipment = livingEntity.getEquipment();
-        if (equipment == null) {
-            return;
-        }
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack itemInSlot = equipment.getItem(slot);
-            ItemStack updatedArmorItem = updateArmorModel(itemInSlot);
-            ItemStack updatedItem = updateEnchantments(updatedArmorItem);
-            equipment.setItem(slot, updatedItem);
-        }
-    }
-
-    @EventHandler
-    public void onEquipItem(PlayerArmorChangeEvent event) {
-        Player player = event.getPlayer();
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack itemInSlot = player.getInventory().getItem(slot);
-            ItemStack updatedArmorItem = updateArmorModel(itemInSlot);
-            ItemStack updatedItem = updateEnchantments(updatedArmorItem);
-            player.getInventory().setItem(slot, updatedItem);
-        }
-    }
-
-    private ItemStack updateArmorModel(ItemStack item) {
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null) return item;
-        NamespacedKey currentModel = meta.getItemModel();
-        if (item.getType() == Material.COPPER_HELMET) {
-            if (currentModel == null) {
-                meta.setItemModel(NEW_MODEL_KEY);
-                EquippableComponent equippableComponent = meta.getEquippable();
-                equippableComponent.setModel(null);
-                meta.setEquippable(equippableComponent);
-                item.setItemMeta(meta);
-                return item;
-            }
-            if (Objects.equals(currentModel, OLD_MODEL_KEY)) {
-                meta.setItemModel(NEW_MODEL_KEY);
-                meta.getEquippable().setModel(null);
-                item.setItemMeta(meta);
-                return item;
+        if (event.getEntity() instanceof LivingEntity living) {
+            EntityEquipment eq = living.getEquipment();
+            if (eq == null) return;
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                applyFixes(eq.getItem(slot));
             }
         }
-        return item;
-    }
-
-    private void updatePlayerArmorCustomModels(Player player) {
-        EquipmentSlot[] armorSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-
-        for (EquipmentSlot slot : armorSlots) {
-            ItemStack itemInSlot = player.getInventory().getItem(slot);
-
-            if (itemInSlot.getType() == Material.AIR) {
-                continue;
-            }
-            ItemStack updatedItem = updateArmorModel(itemInSlot);
-            if (itemInSlot.equals(updatedItem)) {
-                continue;
-            }
-            player.getInventory().setItem(slot, updatedItem);
-        }
-    }
-
-    private ItemStack updateEnchantments(ItemStack item) {
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null) return item;
-
-        if (meta.getEnchants().containsKey(Enchantment.MENDING)){
-            meta.removeEnchant(Enchantment.MENDING);
-            item.setItemMeta(meta);
-        }
-        return item;
     }
 }
