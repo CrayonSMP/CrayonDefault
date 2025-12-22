@@ -3,6 +3,7 @@ package com.crayonsmp.paper.listener;
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,8 +27,9 @@ public class ItemListener implements Listener {
     @EventHandler
     public void onItemPickup(EntityPickupItemEvent event) {
         ItemStack item = event.getItem().getItemStack();
-        item = updateArmorModel(item);
-        event.getItem().setItemStack(item);
+        ItemStack updatedArmorItem = updateArmorModel(item);
+        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
+        event.getItem().setItemStack(updatedItem);
     }
 
     @EventHandler
@@ -39,22 +41,25 @@ public class ItemListener implements Listener {
     @EventHandler
     public void onInventoryMove(InventoryMoveItemEvent event) {
         ItemStack item = event.getItem();
-        item = updateArmorModel(item);
-        event.setItem(item);
+        ItemStack updatedArmorItem = updateArmorModel(item);
+        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
+        event.setItem(updatedItem);
     }
 
     @EventHandler
     public void onInventoryDrag(InventoryMoveItemEvent event) {
         ItemStack item = event.getItem();
-        item = updateArmorModel(item);
-        event.setItem(item);
+        ItemStack updatedArmorItem = updateArmorModel(item);
+        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
+        event.setItem(updatedItem);
     }
 
     @EventHandler
     public void onInventoryClick(InventoryMoveItemEvent event) {
         ItemStack item = event.getItem();
-        item = updateArmorModel(item);
-        event.setItem(item);
+        ItemStack updatedArmorItem = updateArmorModel(item);
+        ItemStack updatedItem = updateEnchantments(updatedArmorItem);
+        event.setItem(updatedItem);
     }
 
     @EventHandler
@@ -68,7 +73,8 @@ public class ItemListener implements Listener {
         }
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack itemInSlot = equipment.getItem(slot);
-            ItemStack updatedItem = updateArmorModel(itemInSlot);
+            ItemStack updatedArmorItem = updateArmorModel(itemInSlot);
+            ItemStack updatedItem = updateEnchantments(updatedArmorItem);
             equipment.setItem(slot, updatedItem);
         }
     }
@@ -78,7 +84,8 @@ public class ItemListener implements Listener {
         Player player = event.getPlayer();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack itemInSlot = player.getInventory().getItem(slot);
-            ItemStack updatedItem = updateArmorModel(itemInSlot);
+            ItemStack updatedArmorItem = updateArmorModel(itemInSlot);
+            ItemStack updatedItem = updateEnchantments(updatedArmorItem);
             player.getInventory().setItem(slot, updatedItem);
         }
     }
@@ -121,5 +128,16 @@ public class ItemListener implements Listener {
             }
             player.getInventory().setItem(slot, updatedItem);
         }
+    }
+
+    private ItemStack updateEnchantments(ItemStack item) {
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
+
+        if (meta.getEnchants().containsKey(Enchantment.MENDING)){
+            meta.removeEnchant(Enchantment.MENDING);
+            item.setItemMeta(meta);
+        }
+        return item;
     }
 }

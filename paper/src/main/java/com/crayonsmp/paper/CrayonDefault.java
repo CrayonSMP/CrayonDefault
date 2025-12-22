@@ -58,9 +58,9 @@ public final class CrayonDefault extends JavaPlugin implements ICrayonDefault {
         getServer().getPluginManager().registerEvents(new ItemListener(), this);
         scheduleDailyTasks();
         dialogManager.register();
-
-        Objects.requireNonNull(getServer().getPluginCommand("reload")).setExecutor(new ReloadCommand());
-        Objects.requireNonNull(getServer().getPluginCommand("restart")).setExecutor(new RestartCommand());
+//
+//        Objects.requireNonNull(getServer().getPluginCommand("reload")).setExecutor(new ReloadCommand());
+//        Objects.requireNonNull(getServer().getPluginCommand("restart")).setExecutor(new RestartCommand());
     }
 
     @Override
@@ -75,9 +75,9 @@ public final class CrayonDefault extends JavaPlugin implements ICrayonDefault {
     }
 
     private void scheduleDailyTasks() {
-        Scheduler restart = new Scheduler();
-        restart.schedule("0 4 * * *", new RestartSchedule());
-        restart.start();
+//        Scheduler restart = new Scheduler();
+//        restart.schedule("0 4 * * *", new RestartSchedule());
+//        restart.start();
 
     }
 
