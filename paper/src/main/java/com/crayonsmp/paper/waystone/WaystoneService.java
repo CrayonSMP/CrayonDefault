@@ -40,6 +40,7 @@ public class WaystoneService implements IWaystoneService {
     public void initConfig() {
         if (!this.config.getFile().exists()) {
             this.config.setDefault("waystone-id", "default:bench");
+            this.config.setDefault("base-xp-cost", 0.01);
             this.config.save();
         }
 
@@ -236,7 +237,7 @@ public class WaystoneService implements IWaystoneService {
             return 900;
         }
         double distance = fromLoc.distance(toLoc);
-        double rawCost = distance * (double) 0.02F;
+        double rawCost = distance * config.getDouble("base-xp-cost");
         return (int) Math.ceil(rawCost);
     }
 

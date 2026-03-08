@@ -1,6 +1,6 @@
 package com.crayonsmp.api.config;
 
-import lombok.Getter;
+// Entferne das @Getter oben am Feld
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 public class Configuration extends YamlConfiguration {
-    @Getter
-    private final File file;
+
+    private final File file; // @Getter entfernt
     private final String name;
 
     public Configuration(File file, String name) {
@@ -19,10 +19,19 @@ public class Configuration extends YamlConfiguration {
         this.file = file;
         this.name = name;
         try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             super.load(file);
         } catch (IOException | InvalidConfigurationException ex) {
             Bukkit.getLogger().log(Level.SEVERE, "Cannot load " + file, ex);
         }
+    }
+
+    // Füge die Methode MANUELL hinzu
+    public File getFile() {
+        return this.file;
     }
 
     public void setDefault(String a, Object b) {
@@ -41,7 +50,9 @@ public class Configuration extends YamlConfiguration {
     }
 
     public void delete() {
-        file.delete();
+        if (file.exists()) {
+            file.delete();
+        }
         ConfigurationUtil.cachemap.remove(name);
     }
 }
