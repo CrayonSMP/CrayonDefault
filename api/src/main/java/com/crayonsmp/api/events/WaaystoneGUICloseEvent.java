@@ -1,23 +1,20 @@
 package com.crayonsmp.api.events;
 
-import com.crayonsmp.api.twitch.IStreamer;
+import com.crayonsmp.api.waystone.IWaystone;
 import lombok.Getter;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.jetbrains.annotations.NotNull;
 
-public class StreamerNowLiveEvent extends Event {
+public class WaaystoneGUICloseEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
     private final Player player;
-    private final IStreamer streamer;
 
-    public StreamerNowLiveEvent(Player player, IStreamer streamer) {
+    public WaaystoneGUICloseEvent(Player player) {
         this.player = player;
-        this.streamer = streamer;
     }
 
     @Override
@@ -31,9 +28,5 @@ public class StreamerNowLiveEvent extends Event {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public IStreamer getStreamer() {
-        return streamer;
     }
 }

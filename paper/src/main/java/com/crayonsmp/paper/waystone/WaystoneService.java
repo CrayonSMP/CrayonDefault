@@ -1,6 +1,9 @@
 package com.crayonsmp.paper.waystone;
 
 import com.crayonsmp.api.ICrayonDefault;
+import com.crayonsmp.api.events.StreamerNowLiveEvent;
+import com.crayonsmp.api.events.WaaystoneGUICloseEvent;
+import com.crayonsmp.api.events.WaystoneTeleportEvent;
 import com.crayonsmp.api.util.ChatUtil;
 import com.crayonsmp.api.waystone.IWaystone;
 import com.crayonsmp.api.waystone.IWaystoneService;
@@ -13,6 +16,7 @@ import io.github.projectunified.unidialog.paper.PaperDialogManager;
 import io.github.projectunified.unidialog.paper.dialog.PaperMultiActionDialog;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -163,6 +167,15 @@ public class WaystoneService implements IWaystoneService {
             }
         });
 
+        paperDialog.exitAction((closedUuid) -> {
+            Player closingPlayer = player;
+
+            if (closingPlayer != null) {
+                WaaystoneGUICloseEvent event = new WaaystoneGUICloseEvent(player);
+                Bukkit.getPluginManager().callEvent(event);
+            }
+        });
+
         paperDialog.opener().open(playerUUID);
     }
 
@@ -250,6 +263,8 @@ public class WaystoneService implements IWaystoneService {
             player.sendActionBar(ChatUtil.miniMessage("<red>You dont have enough levels"));
             return;
         }
+        WaystoneTeleportEvent event = new WaystoneTeleportEvent(player, true, null, oldWaystone, newWaystone);
+        Bukkit.getPluginManager().callEvent(event);
         player.giveExpLevels(-lvlCost);
         player.teleport(safeLocation);
 
@@ -273,6 +288,8 @@ public class WaystoneService implements IWaystoneService {
             player.sendActionBar(ChatUtil.miniMessage("<red>You dont have enough levels"));
             return;
         }
+        WaystoneTeleportEvent event = new WaystoneTeleportEvent(player, false, oldLoc, null, newWaystone);
+        Bukkit.getPluginManager().callEvent(event);
         player.giveExpLevels(-lvlCost);
         player.teleport(safeLocation);
 
