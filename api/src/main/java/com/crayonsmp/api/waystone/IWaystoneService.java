@@ -18,6 +18,8 @@ public interface IWaystoneService {
     IWaystone getWaystone(String uid);
     void addPlayerToWaystone(String waystoneUid, String playerUUID);
     void openWaystoneGUI(Player player, String currentWaystoneUID);
+    void openWaystoneGUI(Player player, Location currentLocation, String TitleString);
+
     Configuration getConfig();
     List<IWaystone> getWaystones();
 }
