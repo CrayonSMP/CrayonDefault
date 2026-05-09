@@ -175,7 +175,7 @@ public class ArtifactCrafterListener implements Listener {
             IArtifactRecipe recipe = artifactService.getArtifactRecipe(ingredients);
             ItemStack resoult;
             if (CraftEngineItems.byId(Key.from(recipe.getResult())) != null){
-                resoult = Objects.requireNonNull(CraftEngineItems.byId(Key.from(recipe.getResult()))).buildItemStack();
+                resoult = Objects.requireNonNull(CraftEngineItems.byId(Key.from(recipe.getResult()))).buildBukkitItem();
             } else {
                 resoult = new ItemStack(Objects.requireNonNull(Material.matchMaterial(recipe.getResult())));
             }

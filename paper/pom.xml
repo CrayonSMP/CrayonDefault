@@ -27,9 +27,9 @@
             <url>https://repo.extendedclip.com/releases/</url>
         </repository>
         <repository>
-            <id>xiaomomi's plugins-releases</id>
-            <name>XiaoMoMi's Plugin Repository</name>
-            <url>https://repo.momirealms.net/releases</url>
+            <id>xiaomomi's plugins-snapshots</id>
+            <name>XiaoMoMi;s Plugin Repository</name>
+            <url>https://repo.momirealms.net/snapshots</url>
         </repository>
     </repositories>
 
@@ -58,13 +58,13 @@
         <dependency>
             <groupId>net.momirealms</groupId>
             <artifactId>craft-engine-core</artifactId>
-            <version>0.0.65</version>
+            <version>26.5-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.momirealms</groupId>
             <artifactId>craft-engine-bukkit</artifactId>
-            <version>0.0.65</version>
+            <version>26.5-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
