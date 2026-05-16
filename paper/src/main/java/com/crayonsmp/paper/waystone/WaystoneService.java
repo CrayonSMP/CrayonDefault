@@ -265,10 +265,10 @@ public class WaystoneService implements IWaystoneService {
         }
         WaystoneTeleportEvent event = new WaystoneTeleportEvent(player, true, null, oldWaystone, newWaystone);
         Bukkit.getPluginManager().callEvent(event);
+        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
         player.giveExpLevels(-lvlCost);
         player.teleport(safeLocation);
 
-        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
         player.sendActionBar(ChatUtil.miniMessage("<white>You travel to: " + newWaystone.name()));
     }
 
@@ -291,9 +291,8 @@ public class WaystoneService implements IWaystoneService {
         WaystoneTeleportEvent event = new WaystoneTeleportEvent(player, false, oldLoc, null, newWaystone);
         Bukkit.getPluginManager().callEvent(event);
         player.giveExpLevels(-lvlCost);
-        player.teleport(safeLocation);
-
         player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
+        player.teleport(safeLocation);
         player.sendActionBar(ChatUtil.miniMessage("<white>You travel to: " + newWaystone.name()));
     }
 
